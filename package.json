@@ -1,0 +1,19 @@
+{
+  "name": "zeragae",
+  "version": "1.0.0",
+  "description": "Zeragae-Homepage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/starcoex/zeragae.git"
+  },
+  "author": "Ko Jung Hoon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/starcoex/zeragae/issues"
+  },
+  "homepage": "https://github.com/starcoex/zeragae#readme"
+}
