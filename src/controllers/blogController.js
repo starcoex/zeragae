@@ -1,1 +1,1 @@
-export const handleBlog = (req, res) => res.send("Blog");
+export const home = (req, res) => res.send("Blog Home");

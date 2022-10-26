@@ -1,8 +1,8 @@
 import express from "express";
-import { handleBlog } from "../controllers/blogController";
+import { home } from "../controllers/blogController";
 
 const blogRouter = express.Router();
 
-blogRouter.get("/id", handleBlog);
+blogRouter.get("/", home);
 
 export default blogRouter;
