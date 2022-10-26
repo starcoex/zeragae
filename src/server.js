@@ -1,21 +1,19 @@
 import express from "express";
 import morgan from "morgan";
+import globalRouter from "./routers/globalRoter";
+import userRouters from "./routers/userRouter";
+import videoRouter from "./routers/videoRouter";
+import blogRouter from "./routers/blogRouter";
 
 const PORT = 4000;
 
 const app = express();
 const logger = morgan("dev");
-
-const handleHome = (req, res) => {
-  return res.send({ message: "Hello" });
-};
-const SecurityLogger = (req, res, next) => {
-  const protocol = req.protocol;
-  console.log(protocol === "https" ? "Secure" : "Insecure");
-  next();
-};
 app.use(logger);
-app.use(SecurityLogger);
-app.get("/", handleHome);
+
+app.use("/", globalRouter);
+app.use("/users", userRouters);
+app.use("/videos", videoRouter);
+app.use("/blog", blogRouter);
 
 app.listen(PORT, () => console.log(`Zeragae Server http://localhost:${PORT}`));
