@@ -1,7 +1,6 @@
 import express from "express";
 import {
   see,
-  upload,
   remove,
   getEdit,
   postEdit,
