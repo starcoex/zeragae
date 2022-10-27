@@ -1,5 +1,5 @@
 export const home = (req, res) => {
-  res.render("home");
+  res.render("home", { pageTitle: "Home" });
 };
 export const login = (req, res) => res.send("Login");
 export const join = (req, res) => res.send("Join");
