@@ -1,0 +1,7 @@
+extends layout.pug 
+include mixins/video.pug
+
+block content 
+  form(action="", method="post")
+    input(type="text" placeholder="Title" name="title" )
+    input(type="submit" value="Upload Video")
