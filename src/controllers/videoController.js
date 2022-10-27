@@ -10,7 +10,10 @@ export const getEdit = (req, res) => {
   res.render("edit", { pageTitle: `Editing: ${video.title}`, video });
 };
 export const postEdit = (req, res) => {
-  res.send("Post");
+  const { id } = req.params;
+  const { title } = req.body;
+  videos[id - 1].title = title;
+  res.redirect(`/videos/${id}`);
 };
 export const upload = (req, res) => res.send("Video Upload");
 
