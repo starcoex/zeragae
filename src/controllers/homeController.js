@@ -1,5 +1,15 @@
 export const home = (req, res) => {
-  const videos = [1, 2, 3, 4, 5, 6, 7, 8];
+  const videos = [
+    {
+      title: "first",
+      rating: 5,
+      comments: 2,
+      creatdAt: "2 minutes ago",
+      views: 59,
+      id: 1,
+    },
+    { title: "Two" },
+  ];
   res.render("home", { pageTitle: "Home", videos });
 };
 export const login = (req, res) => res.send("Login");
