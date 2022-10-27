@@ -2,9 +2,7 @@ extends layout.pug
 include mixins/video
 
 block content  
-  if video.views === 1 
-    h2 #{video.views} view.
-  else 
-    h2 #{video.views} views.
+  h2 #{video.views} #{video.views === 1 ? "view" : "views" }
+  a(href=`${video.id}/edit`) Edit Video &rarr;
   
   
