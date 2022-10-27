@@ -3,17 +3,6 @@ html(lang="en")
   include partials/head
   body 
     header 
-      if fakeMaker.loggedIn 
-        small Hello #{fakeMaker.username}
-      nav 
-        ul 
-          if fakeMaker.loggedIn
-            li 
-              a(href="/logout") Log out
-          else
-            li 
-              a(href="/login") Login
-
     main 
       block content
     

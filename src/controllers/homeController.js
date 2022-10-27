@@ -1,10 +1,6 @@
-const fakeMaker = {
-  username: "Ko Jung Hoon",
-  loggedIn: false,
-};
-
 export const home = (req, res) => {
-  res.render("home", { pageTitle: "Home", fakeMaker });
+  const videos = [1, 2, 3, 4, 5, 6, 7, 8];
+  res.render("home", { pageTitle: "Home", videos });
 };
 export const login = (req, res) => res.send("Login");
 export const join = (req, res) => res.send("Join");
