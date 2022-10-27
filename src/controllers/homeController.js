@@ -1,10 +1,12 @@
 import Video from "../models/Video";
-export const home = (req, res) => {
-  Video.find({}, (error, videos) => {
-    console.log(error);
-    console.log(videos);
-  });
-  res.render("home", { pageTitle: "Home", videos: [] });
+export const home = async (req, res) => {
+  try {
+    const videos = await Video.find({});
+    res.render("home", { pageTitle: "Home", videos });
+  } catch (error) {
+    console.log("Error", error);
+  }
+  console.log("three");
 };
 export const login = (req, res) => res.send("Login");
 export const join = (req, res) => res.send("Join");
