@@ -1,3 +1,4 @@
+import Video from "../models/Video";
 export const see = (req, res) => {
   res.render("see", { pageTitle: `Watching ${video.title}`, video });
 };

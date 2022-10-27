@@ -1,5 +1,10 @@
+import Video from "../models/Video";
 export const home = (req, res) => {
-  res.render("home", { pageTitle: "Home", videos });
+  Video.find({}, (error, videos) => {
+    console.log(error);
+    console.log(videos);
+  });
+  res.render("home", { pageTitle: "Home", videos: [] });
 };
 export const login = (req, res) => res.send("Login");
 export const join = (req, res) => res.send("Join");
