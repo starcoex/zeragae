@@ -4,4 +4,6 @@ include mixins/video.pug
 block content 
   form(action="", method="post")
     input(type="text" placeholder="Title" name="title" )
+    input(type="text" placeholder="Description" name="description" )
+    input(type="text" placeholder="Hashtags, separated by comma." name="hashtags" )
     input(type="submit" value="Upload Video")

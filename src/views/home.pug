@@ -2,8 +2,7 @@ extends layout.pug
 include mixins/video
 
 block content   
-  h1=pageTitle 
-    each video in videos 
-      +video(video)
-    else 
-      li Sorry nothing found
+  each video in videos 
+    +video(video)
+  else 
+    li Sorry nothing found
