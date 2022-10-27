@@ -1,0 +1,10 @@
+extends layout.pug
+include mixins/video
+
+block content  
+  if video.views === 1 
+    h2 #{video.views} view.
+  else 
+    h2 #{video.views} views.
+  
+  
