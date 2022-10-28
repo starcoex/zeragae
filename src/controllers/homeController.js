@@ -7,7 +7,6 @@ export const home = async (req, res) => {
   } catch (error) {
     console.log("Error", error);
   }
-  console.log("three");
 };
 export const login = (req, res) => res.send("Login");
 export const join = (req, res) => res.send("Join");
