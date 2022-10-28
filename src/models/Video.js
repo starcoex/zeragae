@@ -10,6 +10,11 @@ const videoSchema = new mongoose.Schema({
     rating: { type: Number, default: 0, required: true },
   },
 });
+videoSchema.pre("save", async function () {
+  this.hashtags = this.hashtags[0]
+    .split(",")
+    .map((hashtag) => (hashtag.startsWith("#") ? hashtag : `#${hashtag}`));
+});
 
 const Video = mongoose.model("Video", videoSchema);
 
