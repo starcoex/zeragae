@@ -17,10 +17,18 @@ export const getEdit = async (req, res) => {
 };
 export const postEdit = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id);
+  const { title, description, hashtags } = req.body;
+  const video = await Video.exists({ _id: id });
   if (!video) {
     return res.render("404");
   }
+  await Video.findByIdAndUpdate(id, {
+    title,
+    description,
+    hashtags: hashtags
+      .split(",")
+      .map((hashtag) => (hashtag.startsWith("#") ? hashtag : `#${hashtag}`)),
+  });
   return res.redirect(`/videos/${id}`);
 };
 export const getUpload = (req, res) => {
@@ -32,7 +40,9 @@ export const postUpload = async (req, res) => {
     await Video.create({
       title,
       description,
-      hashtags: hashtags.split(",").map((hashtag) => `#${hashtag}`),
+      hashtags: hashtags
+        .split(",")
+        .map((hashtag) => (hashtag.startsWith("#") ? hashtag : `#${hashtag}`)),
     });
     res.redirect("/");
   } catch (error) {
