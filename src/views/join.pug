@@ -2,10 +2,13 @@ extends layout.pug
 include mixins/video.pug
 
 block content 
+  if errorMessage 
+    smail=errorMessage
   form(action="", method="post") 
-    input(type="email" required name="email" placeholder="email")
-    input(type="text" required name="username" placeholder="username")
-    input(type="password" required name="password" placeholder="password")
-    input(type="text" required name="name" placeholder="name")
-    input(type="text" required name="location" placeholder="location")
+    input(type="email" required name="email" placeholder="Email")
+    input(type="text" required name="username" placeholder="Username")
+    input(type="password" required name="password1" placeholder="Password")
+    input(type="password" required name="password2" placeholder="Confirm Password")
+    input(type="text" required name="name" placeholder="Name")
+    input(type="text" required name="location" placeholder="Location")
     input(type="submit", value="Join")
