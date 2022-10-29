@@ -1,0 +1,14 @@
+extends layout.pug 
+include mixins/video.pug
+
+block content 
+  if errorMessage 
+    smail=errorMessage
+  form(action="", method="post")   
+    input(type="text" required name="username" placeholder="Username")
+    input(type="password" required name="password" placeholder="Password")
+    input(type="submit", value="Login")
+  hr
+  div 
+    span Don't have on account? 
+    a(href="/join") Create one now &rarr;

@@ -7,8 +7,12 @@ block content
   form(action="", method="post") 
     input(type="email" required name="email" placeholder="Email")
     input(type="text" required name="username" placeholder="Username")
-    input(type="password" required name="password1" placeholder="Password")
+    input(type="password" required name="password" placeholder="Password")
     input(type="password" required name="password2" placeholder="Confirm Password")
     input(type="text" required name="name" placeholder="Name")
     input(type="text" required name="location" placeholder="Location")
     input(type="submit", value="Join")
+  hr
+  div 
+    span Already have on account? 
+    a(href="/login") Log in now &rarr;

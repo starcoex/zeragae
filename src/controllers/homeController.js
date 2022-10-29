@@ -1,6 +1,7 @@
 import { query } from "express";
 import Video from "../models/Video";
 import User from "../models/User";
+import bcrypt from "bcrypt";
 
 export const home = async (req, res) => {
   try {
@@ -10,14 +11,37 @@ export const home = async (req, res) => {
     console.log("Error", error);
   }
 };
-export const login = (req, res) => res.send("Login");
-export const getjoin = (req, res) => {
+export const getLogin = (req, res) => {
+  res.render("login", { pageTitle: "Login" });
+};
+export const postLogin = async (req, res) => {
+  const { username, password } = req.body;
+  const pageTitle = "Login";
+  const usernameExist = await User.exists({ username });
+  if (!usernameExist) {
+    return res.status(400).render("login", {
+      pageTitle,
+      errorMessage: "An account with this username does not exists.",
+    });
+  }
+  const user = await User.findOne({ username });
+  const ok = await bcrypt.compare(password, user.password);
+  console.log(ok);
+  if (!ok) {
+    return res.status(400).render("login", {
+      pageTitle,
+      errorMessage: "Wrong password",
+    });
+  }
+  return res.end();
+};
+export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
 };
-export const postjoin = async (req, res) => {
-  const { email, username, name, password1, password2, location } = req.body;
+export const postJoin = async (req, res) => {
+  const { email, username, name, password, password2, location } = req.body;
   const pageTitle = "Join";
-  if (password1 !== password2) {
+  if (password !== password2) {
     return res.status(400).render("join", {
       pageTitle,
       errorMessage: "Password confirmation does not match.",
@@ -47,7 +71,9 @@ export const postjoin = async (req, res) => {
     });
     return res.redirect("/login");
   } catch (error) {
-    res.render("join", { pageTitle: "Join", errorMessage: error._message });
+    res
+      .status(400)
+      .render("join", { pageTitle: "Join", errorMessage: error._message });
   }
 };
 export const search = async (req, res) => {
