@@ -3,7 +3,7 @@ export const see = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
   if (!video) {
-    return res.render("404");
+    return res.status(404).render("404");
   }
   return res.render("see", { pageTitle: `Watching ${video.title}`, video });
 };
@@ -11,7 +11,7 @@ export const getEdit = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
   if (!video) {
-    return res.render("404");
+    return res.status(404).render("404");
   }
   return res.render("edit", { pageTitle: `Editing: ${video.title}`, video });
 };
@@ -20,7 +20,7 @@ export const postEdit = async (req, res) => {
   const { title, description, hashtags } = req.body;
   const video = await Video.exists({ _id: id });
   if (!video) {
-    return res.render("404");
+    return res.status(404).render("404");
   }
   await Video.findByIdAndUpdate(id, {
     title,
@@ -52,6 +52,5 @@ export const postUpload = async (req, res) => {
 export const deleteVideo = async (req, res) => {
   const { id, createdAt } = req.params;
   await Video.findByIdAndDelete(id);
-  // await Video.findByIdAndDelete(createdAt);
   return res.redirect("/");
 };
