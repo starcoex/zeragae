@@ -1,5 +1,7 @@
 import { query } from "express";
 import Video from "../models/Video";
+import User from "../models/User";
+
 export const home = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ createdAt: "descending" });
@@ -9,7 +11,24 @@ export const home = async (req, res) => {
   }
 };
 export const login = (req, res) => res.send("Login");
-export const join = (req, res) => res.send("Join");
+export const getjoin = (req, res) => {
+  res.render("join", { pageTitle: "Join" });
+};
+export const postjoin = async (req, res) => {
+  const { email, username, name, password, location } = req.body;
+  try {
+    await User.create({
+      email,
+      username,
+      name,
+      password,
+      location,
+    });
+    return res.redirect("/login");
+  } catch (error) {
+    res.render("join", { pageTitle: "Join", errorMessage: error._message });
+  }
+};
 export const search = async (req, res) => {
   const { keyword } = req.query;
   let videos = [];

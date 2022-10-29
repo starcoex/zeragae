@@ -1,0 +1,11 @@
+extends layout.pug 
+include mixins/video.pug
+
+block content 
+  form(action="", method="post") 
+    input(type="email" required name="email" placeholder="email")
+    input(type="text" required name="username" placeholder="username")
+    input(type="password" required name="password" placeholder="password")
+    input(type="text" required name="name" placeholder="name")
+    input(type="text" required name="location" placeholder="location")
+    input(type="submit", value="Join")
