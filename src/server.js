@@ -5,6 +5,7 @@ import rootRouter from "./routers/rootRouter";
 import userRouters from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import blogRouter from "./routers/blogRouter";
+import { localMiddlewares } from "./middlewares";
 
 const app = express();
 const logger = morgan("dev");
@@ -21,10 +22,22 @@ app.use(
   })
 );
 
+// app.use((req, res, next) => {
+//   console.log(req.headers);
+//   next();
+// });
 app.use((req, res, next) => {
-  console.log(req.headers);
-  next();
+  req.sessionStore.all((error, sessions) => {
+    console.log(sessions);
+    next();
+  });
 });
+app.get("/add-on", (req, res, next) => {
+  console.log(req.session.id);
+  res.send(req.session.id);
+});
+
+app.use(localMiddlewares);
 
 app.use("/", rootRouter);
 app.use("/users", userRouters);

@@ -33,7 +33,10 @@ export const postLogin = async (req, res) => {
       errorMessage: "Wrong password",
     });
   }
-  return res.end();
+  req.session.loggedIn = true;
+  req.session.user = user;
+  console.log(user);
+  return res.redirect("/");
 };
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
