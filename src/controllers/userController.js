@@ -1,9 +1,10 @@
+import fetch from "node-fetch";
 export const see = (req, res) => res.send("Users");
 export const logout = (req, res) => res.send("Logout");
 export const edit = (req, res) => res.send("Edit");
 export const remove = (req, res) => res.send("Remove");
 export const startGithubLogin = (req, res) => {
-  const baseUrl = `https://github.com/login/oauth/authorize`;
+  const baseUrl = "https://github.com/login/oauth/authorize";
   const config = {
     client_id: process.env.GITHUB_CLIENT,
     allow_singup: false,
@@ -17,7 +18,7 @@ export const callbackGithubLogin = async (req, res) => {
   const baseUrl = "https://github.com/login/oauth/access_token";
   const config = {
     client_id: process.env.GITHUB_CLIENT,
-    cliient_secret: process.env.GITHUB_SECRET,
+    client_secret: process.env.GITHUB_SECRET,
     code: req.query.code,
   };
   const params = new URLSearchParams(config).toString();
@@ -29,4 +30,16 @@ export const callbackGithubLogin = async (req, res) => {
     },
   });
   const json = await data.json();
+  if ("acess_token" in json) {
+    const { access_token } = json;
+    const userRequest = await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `token ${access_token}`,
+      },
+    });
+    // const json = await userRequest.json();
+    console.log(json);
+  } else {
+    return res.redirect("/login");
+  }
 };

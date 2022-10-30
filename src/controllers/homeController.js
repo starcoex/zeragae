@@ -35,7 +35,6 @@ export const postLogin = async (req, res) => {
   }
   req.session.loggedIn = true;
   req.session.user = user;
-  console.log(user);
   return res.redirect("/");
 };
 export const getJoin = (req, res) => {
