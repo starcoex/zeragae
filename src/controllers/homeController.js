@@ -17,7 +17,7 @@ export const getLogin = (req, res) => {
 export const postLogin = async (req, res) => {
   const { username, password } = req.body;
   const pageTitle = "Login";
-  const usernameExist = await User.exists({ username });
+  const usernameExist = await User.exists({ username, socialOnly: false });
   if (!usernameExist) {
     return res.status(400).render("login", {
       pageTitle,
@@ -26,7 +26,6 @@ export const postLogin = async (req, res) => {
   }
   const user = await User.findOne({ username });
   const ok = await bcrypt.compare(password, user.password);
-  console.log(ok);
   if (!ok) {
     return res.status(400).render("login", {
       pageTitle,
