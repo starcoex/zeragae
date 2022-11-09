@@ -12,6 +12,7 @@ import { localMiddlewares } from "./middlewares";
 const app = express();
 const logger = morgan("dev");
 app.use(logger);
+app.use("/assets", express.static("assets"));
 
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
