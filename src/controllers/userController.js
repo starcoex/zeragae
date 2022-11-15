@@ -84,17 +84,17 @@ export const callbackGithubLogin = async (req, res) => {
   }
 };
 export const getEdit = (req, res) => {
-  console.log(req.session);
-  console.log(res.locals);
   return res.render("edit-profile", { pageTitle: "Edit Profiles" });
 };
 export const postEdit = async (req, res) => {
   const {
     body: { name, email, username, location },
+    file,
     session: {
-      user: { _id },
+      user: { _id, avatarUrl },
     },
   } = req;
+
   const findUsername = await User.findOne({ username });
   const findEmail = await User.findOne({ email });
   if (findUsername._id != _id || findEmail._id != _id) {
@@ -106,6 +106,7 @@ export const postEdit = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
+      avatarUrl: file ? file.path : avatarUrl,
       name,
       email,
       username,

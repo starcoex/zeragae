@@ -32,6 +32,7 @@ app.get("/add-on", (req, res, next) => {
 });
 
 app.use(localMiddlewares);
+app.use("/uploads", express.static("uploads"));
 
 app.use("/", rootRouter);
 app.use("/users", userRouters);
