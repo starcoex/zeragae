@@ -5,8 +5,7 @@ export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
 };
-export const edit = (req, res) => res.send("Edit");
-export const remove = (req, res) => res.send("Remove");
+
 export const startGithubLogin = (req, res) => {
   const baseUrl = "https://github.com/login/oauth/authorize";
   const config = {
@@ -82,3 +81,36 @@ export const callbackGithubLogin = async (req, res) => {
     return res.redirect("/login");
   }
 };
+export const getEdit = (req, res) => {
+  console.log(req.session);
+  console.log(res.locals);
+  return res.render("edit-profile", { pageTitle: "Edit Profiles" });
+};
+export const postEdit = async (req, res) => {
+  const {
+    body: { name, email, username, location },
+    session: {
+      user: { _id },
+    },
+  } = req;
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      name,
+      email,
+      username,
+      location,
+    },
+    { new: true }
+  );
+  req.session.user = updatedUser;
+  // req.session.user = {
+  //   ...req.session.user,
+  //   name,
+  //   email,
+  //   username,
+  //   location,
+  // };
+  return res.redirect("/users/edit");
+};
+export const remove = (req, res) => res.send("Remove");
