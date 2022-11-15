@@ -93,6 +93,14 @@ export const postEdit = async (req, res) => {
       user: { _id },
     },
   } = req;
+  const findUsername = await User.findOne({ username });
+  const findEmail = await User.findOne({ email });
+  if (findUsername._id != _id || findEmail._id != _id) {
+    return res.render("edit-profile", {
+      pageTitle: "Edit Profile",
+      errorMessage: "User is exist",
+    });
+  }
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
