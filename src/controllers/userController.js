@@ -1,5 +1,7 @@
 import fetch from "node-fetch";
 import User from "../models/User";
+import bcrypt from "bcrypt";
+
 export const see = (req, res) => res.send("Users");
 export const logout = (req, res) => {
   req.session.destroy();
@@ -121,4 +123,35 @@ export const postEdit = async (req, res) => {
   // };
   return res.redirect("/users/edit");
 };
+
+export const getChangePassword = (req, res) => {
+  if (req.session.user.socialOnly === true) {
+    return res.redirect("/");
+  }
+  return res.render("users/change-password", { pageTitle: "Change Password" });
+};
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPassword, newPassword, newPsaawordConfirmation },
+    session: {
+      user: { _id },
+    },
+  } = req;
+  const user = await User.findById(_id);
+  const ok = await bcrypt.compare(oldPassword, user.password);
+  if (!ok) {
+    return res.render("users/change-password", {
+      errorMessage: "기존 패스워드가 맞지 않습니다.",
+    });
+  }
+  if (newPassword !== newPsaawordConfirmation) {
+    return res.render("users/change-password", {
+      errorMessage: "비밀번화가 맞지 않습니다",
+    });
+  }
+  user.password = newPassword;
+  await user.save();
+  return res.redirect("/users/logout");
+};
+
 export const remove = (req, res) => res.send("Remove");

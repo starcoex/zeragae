@@ -1,4 +1,4 @@
-extends layout 
+extends templates/layout.pug 
 
 block content 
   form(action="", method="post") 
@@ -7,3 +7,6 @@ block content
     input(type="text" required name="username" placeholder="Username" value=loggedInUser.username)
     input(type="text" required name="location" placeholder="Location" value=loggedInUser.location)
     input(type="submit", value="Update Profile")
+    if !loggedInUser.socialOnly
+      hr
+      a(href="change-password") Change Password &rarr;
