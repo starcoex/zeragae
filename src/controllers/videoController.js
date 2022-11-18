@@ -1,11 +1,18 @@
 import Video from "../models/Video";
+import User from "../models/User";
+
 export const see = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
+  const owner = await User.findById(video.owner);
   if (!video) {
     return res.status(404).render("404");
   }
-  return res.render("see", { pageTitle: `Watching ${video.title}`, video });
+  return res.render("see", {
+    pageTitle: `Watching ${video.title}`,
+    video,
+    owner,
+  });
 };
 export const getEdit = async (req, res) => {
   const { id } = req.params;
@@ -36,6 +43,9 @@ export const postUpload = async (req, res) => {
   const {
     body: { title, description, hashtags },
     file: { path },
+    session: {
+      user: { _id },
+    },
   } = req;
 
   try {
@@ -43,6 +53,7 @@ export const postUpload = async (req, res) => {
       title,
       description,
       fileUrl: path,
+      owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });
     res.redirect("/");

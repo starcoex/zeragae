@@ -32,6 +32,6 @@ userRouter
   .get(getChangePassword)
   .post(postChangePassword);
 userRouter.get("/remove", remove);
-userRouter.get("/:id(\\d+)", see);
+userRouter.get("/:id([0-9a-f]{24})", see);
 
 export default userRouter;
