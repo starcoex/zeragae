@@ -5,7 +5,9 @@ import bcrypt from "bcrypt";
 
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({}).sort({ createdAt: "descending" });
+    const videos = await Video.find({})
+      .sort({ createdAt: "descending" })
+      .populate("owner");
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log("Error", error);
@@ -34,6 +36,7 @@ export const postLogin = async (req, res) => {
   }
   req.session.loggedIn = true;
   req.session.user = user;
+  req.session.pageviews = 1;
   return res.redirect("/");
 };
 export const getJoin = (req, res) => {
@@ -85,7 +88,7 @@ export const search = async (req, res) => {
       title: {
         $regex: new RegExp(keyword, "i"),
       },
-    });
+    }).populate("owner");
   }
   return res.render("search", { pageTitle: "Search", videos });
 };
