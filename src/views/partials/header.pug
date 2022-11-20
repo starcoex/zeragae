@@ -19,8 +19,6 @@ header
               span.header__emoji 😀
             else  
               img(src="/" + loggedInUser.avatarUrl).header__avatar
-        li 
-          a(href="my-profile") #{loggedInUser.username}의 Profile
       else
         li 
           a(href="/login").header__btn Login    
