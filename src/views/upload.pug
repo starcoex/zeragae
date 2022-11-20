@@ -4,7 +4,7 @@ include mixins/video.pug
 block content 
   if errorMessage 
     span Error Message : #{errorMessage}
-  form(action="", method="post" enctype="multipart/form-data")
+  form(action="", method="post" enctype="multipart/form-data").edit-profile__form
     label(for="video") Video File 
     input(type="file", name="video" accept="video/*" required id="video") 
     input(type="text" placeholder="Title" name="title" required)
