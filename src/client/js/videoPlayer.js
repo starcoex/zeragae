@@ -27,7 +27,6 @@ const handlePlayClick = (event) => {
   } else {
     video.pause();
   }
-  // playBtn.innerText = video.paused ? "Pause" : "Play";
   playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
 };
 const handleMuteClick = (event) => {
@@ -46,7 +45,12 @@ const handleVolumeChange = (event) => {
   const { value } = event.target;
   if (video.muted) {
     video.muted = false;
-    muteBtn.innerText = "Mute";
+    muteBtnIcon.classList = "fas fa-volume-mute";
+  }
+  if (value === "0") {
+    muteBtnIcon.classList = "fas fa-volume-off";
+  } else {
+    muteBtnIcon.classList = "fas fa-volume-up";
   }
   volumeValue = value;
 };
@@ -80,32 +84,7 @@ const handleTimelineSet = (event) => {
   videoPlayStatus ? video.play() : video.pause();
   setVideoPlayStatus = false;
 };
-const handleVideoEnded = () => {
-  video.currentTime = 0;
-};
 const handleKeydown = (event) => {
-  // const {keyCode} = event;
-  // if(keyCode === 32){
-  //     handlePlayClick();
-  // }
-  // if(keyCode === 27){
-  //     document.exitFullscreen();
-  //     fullScreenBtnIcon.classList = "fas fa-expand";
-  // }
-  // if(keyCode === 77){
-  //     handleMute();
-  // }
-  // // fastforward 5 seconds
-  // if(keyCode === 39){
-  //     timeline.value = Math.floor(video.currentTime + 5);
-  //     video.currentTime = timeline.value;
-  // }
-  // // rewind 5 seconds
-  // if(keyCode === 37){
-  //     timeline.value = Math.floor(video.currentTime - 5);
-  //     video.currentTime = timeline.value;
-  // }
-
   if (event.code === "Enter") {
     handlePlayClick();
   }
@@ -120,11 +99,9 @@ const handleFullScreenClick = () => {
   const fullscreen = document.fullscreenElement;
   if (fullscreen) {
     document.exitFullscreen();
-    // fullScreenBtn.innerText = "Enter Full Screen";
     fullScreenIcon.classList = "fas fa-expand";
   } else {
     videoContainer.requestFullscreen();
-    // fullScreenBtn.innerText = "Exit Full Screen";
     fullScreenIcon.classList = "fas fa-compress";
   }
 };
@@ -146,6 +123,11 @@ const handleMouseLeave = () => {
 };
 const handleDoubleClick = () => {
   handleFullScreenClick();
+};
+const handleVideoEnded = () => {
+  const { id } = videoContainer.dataset;
+  video.currentTime = 0;
+  fetch(`/api/videos/${id}/view`, { method: "post" });
 };
 
 playBtn.addEventListener("click", handlePlayClick);

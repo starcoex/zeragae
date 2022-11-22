@@ -2,6 +2,9 @@ extends templates/layout.pug
 include mixins/video.pug
 
 block content 
+  div 
+    video#preview
+    button#startBtn Start Recording
   if errorMessage 
     span Error Message : #{errorMessage}
   form(action="", method="post" enctype="multipart/form-data").edit-profile__form
@@ -11,3 +14,5 @@ block content
     input(type="text" placeholder="Description" name="description" required)
     input(type="text" placeholder="Hashtags, separated by comma." name="hashtags" required)
     input(type="submit" value="Upload Video")
+  block scripts 
+    script(src="/static/js/recorder.js")
