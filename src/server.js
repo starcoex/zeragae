@@ -2,6 +2,7 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import userRouters from "./routers/userRouter";
@@ -38,6 +39,7 @@ app.get("/add-on", (req, res, next) => {
   res.send(req.session.id);
 });
 
+app.use(flash());
 app.use(localMiddlewares);
 app.use("/convert", express.static("node_modules/@ffmpeg/core/dist"));
 app.use("/uploads", express.static("uploads"));
