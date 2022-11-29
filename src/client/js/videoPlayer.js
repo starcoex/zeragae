@@ -85,6 +85,10 @@ const handleTimelineSet = (event) => {
   setVideoPlayStatus = false;
 };
 const handleKeydown = (event) => {
+  if (event.target.id === "textarea") {
+    return;
+  }
+
   if (event.code === "Enter") {
     handlePlayClick();
   }
