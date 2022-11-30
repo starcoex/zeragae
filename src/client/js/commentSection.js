@@ -23,7 +23,7 @@ const addComment = (text) => {
   span.innerText = ` ${text}`;
   newComment.appendChild(icon);
   newComment.appendChild(span);
-  // videoComments.prepend(newComment);
+  videoComments.prepend(newComment);
 };
 
 // const handleSubmit = async (event) => {
@@ -68,9 +68,9 @@ const handleSubmit = async (event) => {
     body: JSON.stringify({ text }),
   });
   textarea.value = "";
-  // if (status === 201) {
-  //   addComment(text);
-  // }
+  if (status === 201) {
+    addComment(text);
+  }
 };
 
 if (form) {

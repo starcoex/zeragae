@@ -40,8 +40,9 @@ block content
           li.video__comment
             i.fas.fa-comment
             |  #{comment.text}
-  block scripts 
-    script(src="/static/js/videoPlayer.js")
-    if loggedIn
-      script(src="/static/js/commentSection.js")
+
+block scripts 
+  script(src="/static/js/videoPlayer.js")
+  if loggedIn
+    script(src="/static/js/commentSection.js")
     

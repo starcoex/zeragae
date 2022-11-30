@@ -2,6 +2,7 @@ import fetch from "node-fetch";
 import User from "../models/User";
 import Video from "../models/Video";
 import bcrypt from "bcrypt";
+import { async } from "regenerator-runtime";
 
 export const see = async (req, res) => {
   const { id } = req.params;
@@ -12,7 +13,6 @@ export const see = async (req, res) => {
       model: "User",
     },
   });
-  console.log(user);
 
   if (!user) {
     return res.status(404).render("404", { pageTitle: "User not found." });
@@ -181,3 +181,16 @@ export const postChangePassword = async (req, res) => {
 };
 
 export const remove = (req, res) => res.send("Remove");
+
+export const getChating = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+
+  return res.render("chat", { pageTitle: "Chating Room", user });
+};
+export const postChating = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  return res.redirect("/");
+  // return res.redirect(`/users/${id}/chat`);
+};
