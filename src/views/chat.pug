@@ -2,13 +2,24 @@ extends templates/layout
 
 block content 
   h1 #{pageTitle}
-  ul#chatList
-  form(method="post")#nickForm
-    input(type="text" placeholder="Choose a nickname" required)
-    input(type="submit" value="Save")
-  form(method="post")#chatForm
-    input(type="text" placeholder="Write a message" required)
-    input(type="submit" value="Send")
+  div#welcomeChat
+    form(method="post")#welcomeForm
+      input#roomName(type="text" placeholder="room name" required)
+      input#nickName(type="text" placeholder="nick name" required)
+      input(type="submit" value="Enter Room")
+    h4 Open Rooms: 
+    ul
+  div#messageRoom
+    h3
+    ul
+    form(method="post")#messagNameRoomForm
+      input(type="text" placeholder="nickname" required)
+      input(type="submit" value="Change")
+    form(method="post")#messageRoomForm
+      input(type="text" placeholder="Write a message" required)
+      input(type="submit" value="Send")
     
 block scripts 
+  script(src="/socket.io/socket.io.js")
   script(src="/static/js/chating.js")
+  

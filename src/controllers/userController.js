@@ -191,6 +191,6 @@ export const getChating = async (req, res) => {
 export const postChating = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
-  return res.redirect("/");
-  // return res.redirect(`/users/${id}/chat`);
+  // return res.redirect("/");
+  return res.redirect(`/users/${id}/chat`);
 };
