@@ -34,6 +34,7 @@
     "pug": "^3.0.2",
     "regenerator-runtime": "^0.13.11",
     "socket.io": "^4.5.4",
+    "webrtc": "^1.14.1",
     "ws": "^8.11.0"
   },
   "devDependencies": {

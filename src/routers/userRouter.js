@@ -11,6 +11,8 @@ import {
   postChangePassword,
   getChating,
   postChating,
+  getVideoChat,
+  postVideoChat,
 } from "../controllers/userController";
 import {
   protectorMiddleware,
@@ -36,5 +38,9 @@ userRouter
 userRouter.get("/remove", remove);
 userRouter.get("/:id([0-9a-f]{24})", see);
 userRouter.route("/:id([0-9a-f]{24})/chat").get(getChating).post(postChating);
+userRouter
+  .route("/:id([0-9a-f]{24})/video-chat")
+  .get(getVideoChat)
+  .post(postVideoChat);
 
 export default userRouter;

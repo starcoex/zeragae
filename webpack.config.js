@@ -10,6 +10,7 @@ module.exports = {
     recorder: BASE_JS + "recorder.js",
     commentSection: BASE_JS + "commentSection.js",
     chating: BASE_JS + "chating.js",
+    videoChating: BASE_JS + "videoChating.js",
   },
   mode: "development",
   watch: true,

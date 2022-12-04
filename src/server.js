@@ -1,5 +1,5 @@
 // require("dotenv").config();
-import express, { text } from "express";
+import express from "express";
 import morgan from "morgan";
 import session from "express-session";
 import flash from "express-flash";
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.urlencoded({ extended: true }));
-app.use(text());
+app.use(express.json());
 app.use(
   session({
     secret: process.env.COOKIE_SERCURET,

@@ -194,3 +194,14 @@ export const postChating = async (req, res) => {
   // return res.redirect("/");
   return res.redirect(`/users/${id}/chat`);
 };
+export const getVideoChat = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  return res.render("video-chat", { pageTitle: "Video Chating", user });
+};
+export const postVideoChat = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+
+  return res.redirect(`/users/${id}/video-chat`);
+};

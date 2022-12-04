@@ -120,9 +120,9 @@ export const createComment = async (req, res) => {
     params: { id },
     body: { text },
   } = req;
+
   const video = await Video.findById(id);
-  // const foundUser = await User.findById({ _id: user._id }).populate("comments");
-  // console.log(foundUser);
+
   if (!video) {
     return res.sendStatus(404);
   }
@@ -133,5 +133,32 @@ export const createComment = async (req, res) => {
   });
   video.comments.push(comment._id);
   video.save();
-  return res.sendStatus(201);
+
+  return res.status(201).json({ newCommentId: comment._id });
+};
+
+export const deleteComment = async (req, res) => {
+  console.log(req.body);
+  const {
+    body: { videoId },
+    params: { id },
+    session: { user },
+  } = req;
+  const video = await Video.findById(videoId);
+  console.log(video);
+  const comment = await Comment.findById(videoId);
+  console.log(comment);
+  // const comment = await Comment.findById(videoId)
+  //   .populate("video")
+  //   .populate("owner");
+  // console.log(comment);
+  // if (!comment) {
+  //   return res.sendStatus(404);
+  // }
+  // if (String(user._id) !== String(comment.owner_id)) {
+  //   return res.status(403).redirect("/");
+  // }
+  await Comment.findByIdAndDelete(id);
+  return res.sendStatus(200);
+  // return res.status(200).redirect(`/videos/${comment.video._id}`);
 };

@@ -1,15 +1,8 @@
-import http from "http";
+import app from "./server";
+import server from "./init";
 import { Server } from "socket.io";
 import { instrument } from "@socket.io/admin-ui";
-import "dotenv/config";
-import "./db";
-import "./models/Video";
-import "./models/User";
-import "./models/Comment";
-import app from "./server";
 
-const PORT = 4900;
-const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: ["https://admin.socket.io"],
@@ -69,23 +62,6 @@ io.on("connection", (socket) => {
   socket.on("nickname", (nickname) => {
     socket["nickname"] = nickname;
   });
-  socket.on("videojoin_room", (roomName) => {
-    // console.log(roomName);
-    socket.join(roomName);
-
-    socket.to(roomName).emit("welcome");
-  });
-  socket.on("offer", (offer, roomName) => {
-    socket.to(roomName).emit("offer", offer);
-  });
-  socket.on("answer", (answer, roomName) => {
-    socket.to(roomName).emit("answer", answer);
-  });
-  socket.on("ice", (ice, roomName) => {
-    socket.to(roomName).emit("ice", ice);
-  });
 });
 
-server.listen(PORT, () =>
-  console.log(`Zeragae Server http://localhost:${PORT}`)
-);
+export default io;

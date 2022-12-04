@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema({
   password: { type: String },
   location: String,
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
-  // comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Commnet" }],
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
 });
 
