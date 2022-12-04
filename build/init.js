@@ -1,5 +1,6 @@
 "use strict";
 
+var _regeneratorRuntime = _interopRequireDefault(require("regenerator-runtime"));
 var _http = _interopRequireDefault(require("http"));
 var _socket = require("socket.io");
 var _adminUi = require("@socket.io/admin-ui");

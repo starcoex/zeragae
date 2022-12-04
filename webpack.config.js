@@ -12,8 +12,8 @@ module.exports = {
     chating: BASE_JS + "chating.js",
     videoChating: BASE_JS + "videoChating.js",
   },
-  mode: "development",
-  watch: true,
+  // mode: "development",
+  // watch: true,
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/styles.css",
