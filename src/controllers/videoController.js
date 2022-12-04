@@ -138,27 +138,25 @@ export const createComment = async (req, res) => {
 };
 
 export const deleteComment = async (req, res) => {
-  console.log(req.body);
   const {
-    body: { videoId },
+    body: { commentId },
     params: { id },
     session: { user },
   } = req;
+  console.log(commentId);
+  const comment = await Comment.findById(id).populate("owner");
+
+  const videoId = comment.video;
+
+  if (String(user._id) !== String(comment.owner_id)) {
+    return res.sendStatus(404);
+  }
   const video = await Video.findById(videoId);
-  console.log(video);
-  const comment = await Comment.findById(videoId);
-  console.log(comment);
-  // const comment = await Comment.findById(videoId)
-  //   .populate("video")
-  //   .populate("owner");
-  // console.log(comment);
-  // if (!comment) {
-  //   return res.sendStatus(404);
-  // }
-  // if (String(user._id) !== String(comment.owner_id)) {
-  //   return res.status(403).redirect("/");
-  // }
-  await Comment.findByIdAndDelete(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.comments.slice(video.comments.indexOf(id), 1);
+  video.save();
+  Comment.findOneAndDelete(id);
   return res.sendStatus(200);
-  // return res.status(200).redirect(`/videos/${comment.video._id}`);
 };

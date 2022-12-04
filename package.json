@@ -4,8 +4,9 @@
   "description": "Zeragae-Homepage",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon",
-    "assets": "webpack --config webpack.config.js"
+    "build:server": "babel src/init.js -d build",
+    "dev:server": "nodemon",
+    "dev:assets": "webpack"
   },
   "repository": {
     "type": "git",
